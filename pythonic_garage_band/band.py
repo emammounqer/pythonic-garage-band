@@ -1,16 +1,72 @@
+from abc import ABC, abstractmethod
 from typing import ClassVar
-from musician import Musician
+
+
+class Musician(ABC):
+
+    def __init__(self, name: str):
+        self.name = name
+
+    def __str__(self):
+        return f"musician named {self.name}, playing {self.get_instrument()}"
+
+    def play_solo(self):
+        return f"{self.name} plays solo {self.get_instrument()}"
+
+    @abstractmethod
+    def __repr__(self):
+        pass
+
+    @abstractmethod
+    def get_instrument(self):
+        pass
+
+
+class Guitarist(Musician):
+
+    def __init__(self, name: str):
+        super().__init__(name)
+
+    def __repr__(self):
+        return f"Guitarist('{self.name}')"
+
+    def get_instrument(self):
+        return "Guitar"
+
+
+class Bassist(Musician):
+
+    def __init__(self, name: str):
+        super().__init__(name)
+
+    def __repr__(self):
+        return f"Bassist('{self.name}')"
+
+    def get_instrument(self):
+        return "Bass"
+
+
+class Drummer(Musician):
+
+    def __init__(self, name: str):
+        super().__init__(name)
+
+    def __repr__(self):
+        return f"Drummer('{self.name}')"
+
+    def get_instrument(self):
+        return "Drums"
 
 
 class Band:
 
-    all_bands: ClassVar[list['Band']] = []
+    instances: ClassVar[list['Band']] = []
 
     def __init__(self, name: str, members: list[Musician] = []):
         self.name = name
         self.members = members
 
-        self.all_bands.append(self)
+        self.instances.append(self)
 
     def play_solos(self):
         for member in self.members:
@@ -24,4 +80,4 @@ class Band:
 
     @classmethod
     def to_list(cls):
-        return cls.all_bands
+        return cls.instances
