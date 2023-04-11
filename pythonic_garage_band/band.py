@@ -8,17 +8,18 @@ class Musician(ABC):
         self.name = name
 
     def __str__(self):
-        return f"musician named {self.name}, playing {self.get_instrument()}"
-
-    def play_solo(self):
-        return f"{self.name} plays solo {self.get_instrument()}"
+        return f"My name is {self.name} and I play {self.get_instrument()}"
 
     @abstractmethod
-    def __repr__(self):
+    def __repr__(self) -> str:
         pass
 
     @abstractmethod
-    def get_instrument(self):
+    def get_instrument(self) -> str:
+        pass
+
+    @abstractmethod
+    def play_solo(self) -> str:
         pass
 
 
@@ -28,10 +29,13 @@ class Guitarist(Musician):
         super().__init__(name)
 
     def __repr__(self):
-        return f"Guitarist('{self.name}')"
+        return f"Guitarist instance. Name = {self.name}"
 
     def get_instrument(self):
-        return "Guitar"
+        return "guitar"
+
+    def play_solo(self):
+        return "face melting guitar solo"
 
 
 class Bassist(Musician):
@@ -40,10 +44,13 @@ class Bassist(Musician):
         super().__init__(name)
 
     def __repr__(self):
-        return f"Bassist('{self.name}')"
+        return f"Bassist instance. Name = {self.name}"
 
     def get_instrument(self):
-        return "Bass"
+        return "bass"
+
+    def play_solo(self):
+        return "bom bom buh bom"
 
 
 class Drummer(Musician):
@@ -52,10 +59,13 @@ class Drummer(Musician):
         super().__init__(name)
 
     def __repr__(self):
-        return f"Drummer('{self.name}')"
+        return f"Drummer instance. Name = {self.name}"
 
     def get_instrument(self):
-        return "Drums"
+        return "drums"
+
+    def play_solo(self):
+        return "rattle boom crash"
 
 
 class Band:
@@ -69,8 +79,7 @@ class Band:
         self.instances.append(self)
 
     def play_solos(self):
-        for member in self.members:
-            print(member.play_solo())
+        return [member.play_solo() for member in self.members]
 
     def __str__(self):
         return f"Band {self.name} has {len(self.members)} members"
