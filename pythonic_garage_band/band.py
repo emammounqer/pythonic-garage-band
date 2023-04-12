@@ -76,7 +76,7 @@ class Band:
         self.name = name
         self.members = members
 
-        self.instances.append(self)
+        Band.instances.append(self)
 
     def play_solos(self):
         return [member.play_solo() for member in self.members]
